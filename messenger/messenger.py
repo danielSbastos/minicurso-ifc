@@ -26,10 +26,16 @@ class Messenger:
 
     @staticmethod
     def sender_id_and_message(entry):
-        for messaging in entry:
+        for message in entry:
+            messaging = message["messaging"][0]
+            if messaging.get("postback"):
+                return (
+                    messaging["sender"]["id"],
+                    messaging["postback"]["payload"]
+                )
             return (
-                messaging["messaging"][0]["sender"]["id"],
-                messaging["messaging"][0]["message"]["text"]
+                messaging["sender"]["id"],
+                messaging["message"]["text"]
             )
 
     @classmethod

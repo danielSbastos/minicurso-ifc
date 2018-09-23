@@ -19,13 +19,16 @@ def bot():
     entry = request.json.get("entry")
     sender_id, message = Messenger.sender_id_and_message(entry)
 
+    if message == "FACEBOOK_WELCOME":
+        Messenger().respond_user(sender_id, "Digite uma palavra para pesquisar por notícias relacionadas!")
+    else:
+        Messenger().respond_user(sender_id, __news(message))
+    return "ok"
+
+def __news(message):
     globo = Globo()
     news = globo.find_news(message)
-    formatted_news = globo.format_for_messenger(news)
-
-    Messenger().respond_user(sender_id, formatted_news)
-
-    return "ok"
+    return globo.format_for_messenger(news)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)

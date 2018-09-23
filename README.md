@@ -21,7 +21,7 @@ pip install -r --user requirements.txt
 `python app.py`
 
 
-# Botão 'GET STARTED'
+## Botão 'GET STARTED'
 
 ```sh
 curl -X POST -H "Content-Type: application/json" -d "{
