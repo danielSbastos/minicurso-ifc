@@ -3,6 +3,7 @@ import os
 from flask import Flask, request
 
 from messenger import Messenger
+from globo import Globo
 
 
 app = Flask(__name__)
@@ -15,7 +16,15 @@ def bot():
             request.args.get("hub.challenge")
         )
 
-    Messenger().respond_user(request.json.get("entry"))
+    entry = request.json.get("entry")
+    sender_id, message = Messenger.sender_id_and_message(entry)
+
+    globo = Globo()
+    news = globo.find_news(message)
+    formatted_news = globo.format_for_messenger(news)
+
+    Messenger().respond_user(sender_id, formatted_news)
+
     return "ok"
 
 if __name__ == '__main__':
