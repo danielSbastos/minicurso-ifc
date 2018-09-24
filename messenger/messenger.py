@@ -9,7 +9,6 @@ class Messenger:
     MESSENGER_PAGE_ACCESS_TOKEN = os.getenv("MESSENGER_PAGE_ACCESS_TOKEN")
     MESSENGER_URL = "https://graph.facebook.com/v2.6/me/messages?access_token=" + MESSENGER_PAGE_ACCESS_TOKEN
 
-
     def respond_user(self, sender_id, message):
         requests.post(
             self.MESSENGER_URL,
